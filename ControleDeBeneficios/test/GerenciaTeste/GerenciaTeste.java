@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 /**
  * @author Eric
  * @authorAndressa
- * @author Jean_H_xD
+ * @author Jean_Henrique
  */
 public class GerenciaTeste {
 
