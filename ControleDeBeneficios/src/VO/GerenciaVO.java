@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package VO;
 
 import RN.GerenciaRN;
 
 /**
- *
  * @author Eric
+ * @authorAndressa
+ * @author Jean_H_xD
  */
 public class GerenciaVO {
 
@@ -24,8 +20,10 @@ public class GerenciaVO {
         this.salario = salario;
     }
 
-    GerenciaVO() {
-        
+    public GerenciaVO() {
+        this.cod = -1;
+        this.nome = null;
+        this.salario = 0.0;
     }
 
     public int getCod() {

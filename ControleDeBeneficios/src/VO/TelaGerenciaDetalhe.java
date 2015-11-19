@@ -18,15 +18,15 @@ public class TelaGerenciaDetalhe extends javax.swing.JFrame {
     public void setBotaoSalvarEditar(String texto) {
         this.btSalvarEditar.setText(texto);
     }
-    public void setBotaoExcluir(String texto){
-        if(texto.equals("Incluir")){
+
+    public void setBotaoExcluir(String texto) {
+        if (texto.equals("Incluir")) {
             this.btExcluir.setEnabled(false);
         }
-        if(texto.equals("Editar")){
+        if (texto.equals("Editar")) {
             this.btExcluir.setEnabled(true);
         }
-        
-        
+
     }
 
     public TelaGerenciaDetalhe() {
@@ -40,11 +40,10 @@ public class TelaGerenciaDetalhe extends javax.swing.JFrame {
         initComponents();
         this.setSize(400, 200);
         this.setLocationRelativeTo(null); //carrega a janela no meio da tela.
-        
-        
-        lblCodGerencia.setText(""+gerenciaVO.getCod());
+
+        lblCodGerencia.setText("" + gerenciaVO.getCod());
         txtNomeGerencia.setText(gerenciaVO.getNome());
-        txtSalarioAdicional.setText(""+gerenciaVO.getSalario());
+        txtSalarioAdicional.setText("" + gerenciaVO.getSalario());
 
     }
 
@@ -148,18 +147,21 @@ public class TelaGerenciaDetalhe extends javax.swing.JFrame {
             txtNomeGerencia.setEnabled(false);
             txtSalarioAdicional.setEnabled(false);
             int codigo;
-            if(lblCodGerencia.getText().equals("-")){
+            if (lblCodGerencia.getText().equals("-")) {
                 codigo = 0;
-            }else{
+            } else {
                 codigo = Integer.parseInt(lblCodGerencia.getText());
             }
-            
+
             GerenciaVO gerenciaVO = new GerenciaVO(codigo, this.txtNomeGerencia.getText(), Double.parseDouble(this.txtSalarioAdicional.getText()));
 
             GerenciaRN gerenciaRN = new GerenciaRN(gerenciaVO);
             GerenciaPERS gerenciaPERS = new GerenciaPERS(gerenciaRN);
-            gerenciaPERS.salvar();
-            this.lblCodGerencia.setText(""+gerenciaVO.getCod());
+            if (gerenciaPERS.salvar()) {
+                this.lblCodGerencia.setText("" + gerenciaVO.getCod());
+            } else{
+                JOptionPane.showMessageDialog(this, "Erro ao salvar",null,JOptionPane.ERROR_MESSAGE,null);
+            }
 
         } else {
             if (btSalvarEditar.getText().equals("Editar")) {
@@ -176,26 +178,23 @@ public class TelaGerenciaDetalhe extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSalarioAdicionalActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-       GerenciaVO gerenciaVO = new GerenciaVO();
-       gerenciaVO.setCod(Integer.parseInt(lblCodGerencia.getText()));
-       gerenciaVO.setNome(txtNomeGerencia.getText());
-       gerenciaVO.setSalario(Double.parseDouble(txtSalarioAdicional.getText()));
-       GerenciaRN gerenciaRN = new GerenciaRN(gerenciaVO);
-       GerenciaPERS gerenciaPERS = new GerenciaPERS(gerenciaRN);
-       
-       
-       if(gerenciaPERS.excluir()){
-           JOptionPane.showMessageDialog(this,"Excluído com sucesso!");
-           this.lblCodGerencia.setText("-");
-           this.txtNomeGerencia.setText("");
-           this.txtSalarioAdicional.setText("");
-       }else{
-           JOptionPane.showMessageDialog(this,"Erro ao excluir!");
-       }
-    
-       
-       
-       
+        GerenciaVO gerenciaVO = new GerenciaVO();
+        gerenciaVO.setCod(Integer.parseInt(lblCodGerencia.getText()));
+        gerenciaVO.setNome(txtNomeGerencia.getText());
+        gerenciaVO.setSalario(Double.parseDouble(txtSalarioAdicional.getText()));
+        GerenciaRN gerenciaRN = new GerenciaRN(gerenciaVO);
+        GerenciaPERS gerenciaPERS = new GerenciaPERS(gerenciaRN);
+
+        if (gerenciaPERS.excluir()) {
+            JOptionPane.showMessageDialog(this, "Excluído com sucesso!");
+            this.lblCodGerencia.setText("-");
+            this.txtNomeGerencia.setText("");
+            this.txtSalarioAdicional.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir!");
+        }
+
+
     }//GEN-LAST:event_btExcluirActionPerformed
 
     /**
